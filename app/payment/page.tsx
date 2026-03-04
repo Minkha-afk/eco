@@ -38,23 +38,34 @@ export default function PaymentPage() {
       <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
         <section className="space-y-4 rounded-lg border bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold">Cart Items</h2>
-          {cartData.cartItems.map((item) => (
-            <div key={item.product_id} className="flex items-center gap-4 border-b pb-3 last:border-b-0">
-              <Image
-                src={item.image}
-                alt={item.product_name}
-                width={56}
-                height={56}
-                className="h-14 w-14 rounded-md object-cover"
-              />
-              <div className="flex-1">
-                <p className="text-sm font-medium">{item.product_name}</p>
-                <p className="text-sm text-gray-600">
-                  ₹{item.product_price} × {item.quantity}
-                </p>
+          {cartData.cartItems.map((item) => {
+            const isSvg = item.image.endsWith('.svg');
+            return (
+              <div key={item.product_id} className="flex items-center gap-4 border-b pb-3 last:border-b-0">
+                {isSvg ? (
+                  <img
+                    src={item.image}
+                    alt={item.product_name}
+                    className="h-14 w-14 rounded-md object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={item.image}
+                    alt={item.product_name}
+                    width={56}
+                    height={56}
+                    className="h-14 w-14 rounded-md object-cover"
+                  />
+                )}
+                <div className="flex-1">
+                  <p className="text-sm font-medium">{item.product_name}</p>
+                  <p className="text-sm text-gray-600">
+                    ₹{item.product_price} × {item.quantity}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </section>
 
         <section className="space-y-4">
